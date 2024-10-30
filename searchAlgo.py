@@ -1,26 +1,47 @@
 import pandas as pd
 import csv
 from csv import DictReader
+from cleanMovies import *
 
-##df = pd.read_csv('https://www.donneesquebec.ca/recherche/dataset/1d291579-a5ec-41e6-af4b-c8dfa293c025/resource/c6393097-24f7-4de3-8909-086733afd7c0/download/extract_video_20241027.csv', encoding="Windows-1252", on_bad_lines='skip')
+file = 'extract.csv'
+df = cleanMovies()
 
-# Write the results to a different file
-file = 'banque_de_films.csv'
- 
-def search(criteria):
+def searchByTitle(title_name):
+    """
+    Search movie or show by name
+    """
+
     with open(file, newline='') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            if match(criteria, row['TITRE_245a']):
-                print(row['TITRE_245a'], row['NB_ITEMS'])
 
-def match(criteria, title):
-    if criteria.lower() in title.lower():
-        return True
-    else:
-        return False
+        #Set dataframe as dictionary
+        reader = df.to_dict(orient='records')
 
+        #Return array
+        r = []
 
-search('star')
+        #Check every row
+        for row in reader:    
+            #If the entered search is present in title, return it
+            if matchTitle(title_name, row['TITRE_245a']):
+                r.append(row['TITRE_245a'])
+        
+        return r
 
-#print(data['TITRE_245a'])
+def matchTitle(searched_title, compared_title):
+    """
+    Defines the necessary criteria to be met when checking if search corresponds to value
+    """
+    
+    #Create list of every word in search
+    words = searched_title.split(" ")
+
+    #Check to see if every word is in the title
+    for i in range(len(words)):
+        if words[i].lower() not in compared_title.lower():
+            return False
+    return True
+
+def searchTag(tag_name):
+    """
+    Search tag by name
+    """
