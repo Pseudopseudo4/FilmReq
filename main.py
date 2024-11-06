@@ -3,6 +3,7 @@ import tkinter as tk
 import numpy as np
 from accueil import Accueil
 from user import User
+from userPage import UserPage
 
 class MainApp(ctk.CTk):
     def __init__(self):
@@ -18,7 +19,7 @@ class MainApp(ctk.CTk):
 
     def show_creaProfil(self):
         self.clear_main_frame()
-        self.accueil = User(master=self)
+        self.accueil = UserPage(self)
 
     def clear_main_frame(self):
         for widget in self.winfo_children():

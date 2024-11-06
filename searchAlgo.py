@@ -18,7 +18,6 @@ def searchByTitle(title_name):
 
         #Set dataframe as dictionary
         titles      = df["TITRE_245a"].to_dict()
-        print(titles)
 
         #Return array
         r = []
@@ -54,6 +53,9 @@ def searchTag(tag_name):
     Search tag by name
     """
 
+def get_entry_position(entry_name):
+    return df.index[df["TITRE_245a"] == entry_name].to_list()[0]
+
 class UserMoviesList(ctk.CTkFrame):
     """
     Creates a search bar that returns potential matches of movies in database
@@ -70,14 +72,11 @@ class UserMoviesList(ctk.CTkFrame):
         self.title = ctk.CTkLabel(self.frame,text=title)
         self.title.pack(pady=(5,0),side="top")
 
-        #Array to store the movie entries
+        #Array to store the movie entry ctkinter elements
         self.movie_entries = []
 
-        #List of movies, coming from the user
+        #Array to store the movie entries to later save
         self.movies = []
-        
-        for movie in self.movies:
-            self.add_entry(movie)
 
         #Create frame to hold the search and match bar
         self.search_frame = ctk.CTkFrame(self.frame)
@@ -141,11 +140,12 @@ class UserMoviesList(ctk.CTkFrame):
 
         #Create Button to remove movie
         entry_id = self.title_frame
-        self.x_button = ctk.CTkButton(self.title_frame, text="X", width=30, command=lambda : self.delete_entry(entry_id))
-        self.x_button.pack(padx=(5,0), side="right")  # Place it in the top-right corner
+        self.x_button = ctk.CTkButton(self.title_frame, text="X", width=30, fg_color="red", hover_color="darkred", command=lambda : self.delete_entry(entry_id))
+        self.x_button.pack(padx=(5,0), side="right")
 
         #Add the entry to an array for access
         self.movie_entries.append(self.title_frame)
+        self.movies.append([name, get_entry_position(name)])
 
     def delete_entry(self, entry):
         """

@@ -16,8 +16,22 @@ def cleanMovies():
 
     #Remove collections from the movies and shows (multiple time numbers)
 
-    print(df.iloc[117]['TITRE_245a'])
-
     return df
+
+df = cleanMovies()
+
+def get_movie_name(pos):
+    return df.iloc[pos]["TITRE_245a"]
+
+def get_movie_tags(index): 
+
+    columns = ['LANGUE_PRINCIPALE_1017', 'CATEGORIE', 'SOUS_CATEGORIE']
+    tags = []
+
+    for column in columns:
+        for tag in df.iloc[index][column].split(', '):
+            tags.append(tag)
+
+    return tags
 
 cleanMovies()
