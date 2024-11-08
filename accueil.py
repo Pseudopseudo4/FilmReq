@@ -32,14 +32,35 @@ class Accueil(ctk.CTkFrame):
                 major_categories['Other'] = minor_categories
             
             # Create the pie chart
-            fig, ax = plt.subplots(figsize=(8, 8))
+            fig, ax = plt.subplots(figsize=(4, 4))
             ax.pie(major_categories, labels=major_categories.index, autopct='%1.1f%%', startangle=140)
-            ax.set_title("Percentage Distribution of Categories")
+            ax.set_title("Distribution des catégories")
 
             # Embed the pie chart in Tkinter
             canvas = FigureCanvasTkAgg(fig, master=self)
             canvas.draw()
-            canvas.get_tk_widget().grid(row=1, column=0, pady=(10, 0))
+            canvas.get_tk_widget().grid(row=1, column=0, pady=(0, 0))
+
+        if 'SOUS_CATEGORIE' in df.columns:
+            # Calculate category distribution and filter out low-percentage categories
+            category_counts = df['SOUS_CATEGORIE'].value_counts(normalize=True) * 100
+            threshold = 4  # Define the minimum percentage threshold for display
+            major_categories = category_counts[category_counts >= threshold]
+            minor_categories = category_counts[category_counts < threshold].sum()
+
+            # Add 'Other' category if there are minor categories
+            if minor_categories > 0:
+                major_categories['Other'] = minor_categories
+            
+            # Create the pie chart
+            fig, ax = plt.subplots(figsize=(4, 4))
+            ax.pie(major_categories, labels=major_categories.index, autopct='%1.1f%%', startangle=140)
+            ax.set_title("Distribution des sous_catégories")
+
+            # Embed the pie chart in Tkinter
+            canvas = FigureCanvasTkAgg(fig, master=self)
+            canvas.draw()
+            canvas.get_tk_widget().grid(row=2, column=0, pady=(0, 0))
 
 
     def button_nouv(self):
