@@ -8,7 +8,7 @@ from userPage import UserPage
 class MainApp(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.geometry("600x850")
+        self.geometry("350x700")
         self.title("Appication de recherche")
 
         self.show_accueil()
