@@ -1,53 +1,66 @@
 import customtkinter as ctk
 import tkinter as tk
 import pandas as pd
+import os
 from pandastable import Table
+from searchAlgo import *
 
-# Load data
-df = pd.read_csv("extract.csv", encoding="Windows-1252", on_bad_lines='skip', 
-                 usecols=['TITRE_245a', 'DUREE_CONTENU', 'PRODUCTION_264B', 
-                          'LANGUE_PRINCIPALE_1017', 'CATEGORIE', 
-                          'SOUS_CATEGORIE', 'DATE_PRODUCTION_046K'])
+class User():
+    def __init__(self, username):
 
-#ctk.set_appearance_mode("dark")
-#ctk.set_default_color_theme("blue") 
-
-class User(ctk.CTkFrame):
-    def __init__(self, master=None):
-        super().__init__(master)
-        self.master = master
-        self.create_widgets()
+        self.load_user(username)
     
-    def create_widgets(self):
-        # Grille
-        self.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
+    def load_user(self, username):
         
-        # Nom
-        self.name_label = ctk.CTkLabel(self, text="Nom:")
-        self.name_label.grid(row=0, column=0, padx=20, pady=(20, 10), sticky="w")
-        self.name_entry = ctk.CTkEntry(self, placeholder_text="Entrez votre nom")
-        self.name_entry.grid(row=0, column=1, padx=20, pady=(20, 10), sticky="ew")
+        file_path = os.path.join("userinfo", username+"_userinfo.txt")
 
-        # Prénom
-        self.firstname_label = ctk.CTkLabel(self, text="Prénom:")
-        self.firstname_label.grid(row=1, column=0, padx=20, pady=(20, 10), sticky="w")
-        self.firstname_entry = ctk.CTkEntry(self, placeholder_text="Entrez votre prénom")
-        self.firstname_entry.grid(row=1, column=1, padx=20, pady=(20, 10), sticky="ew")
+        with open(file_path, 'r') as file:
 
-        # Langue
-        languages = df['LANGUE_PRINCIPALE_1017'].dropna().unique().tolist()
-        self.langue_label = ctk.CTkLabel(self, text="Langue:")
-        self.langue_label.grid(row=2, column=0, padx=20, pady=(20, 10), sticky="w")
-        
-        self.langue_option = ctk.CTkOptionMenu(self, values=languages)
-        self.langue_option.grid(row=2, column=1, padx=20, pady=(20, 10), sticky="ew")
-        self.langue_option.set("Sélectionnez la langue")
+            #Met les lignes de l'information d'utilisateur dans une liste
+            lines = file.readlines()
 
+            self.nom = lines[0]
+            self.prenom = lines[1]
+            self.langue = lines[2]
 
-#root = ctk.CTk()
-#root.geometry("400x300")
+            self.films_aime = [int(num) for num in lines[3].split(',')[:-1]]
+            
+            self.film_aime_pas = [int(num) for num in lines[4].split(',')[:-1]]
 
-#app = User(master=root)
-#app.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
+            self.rate_tags()
 
-#root.mainloop()
+    def rate_tags(self):
+
+        self.tags = {}
+
+        #Aimé
+        for film in self.films_aime:
+
+            movie_tags = get_movie_tags(film)
+
+            for tag in movie_tags:
+                if self.tags.get(tag) is None:
+                    self.tags[tag] = 0
+                self.tags[tag]+=1
+
+        #Pas Aimé
+        for film in self.film_aime_pas:
+
+            movie_tags = get_movie_tags(film)
+
+            for tag in movie_tags:
+                if self.tags.get(tag) is None:
+                    self.tags[tag] = 0
+                self.tags[tag]-=1
+
+    def delete_user(self):
+
+        username = self.nom + self.prenom
+
+        file_path = os.path.join("userinfo", username+"_userinfo.txt")
+
+        #Supprime le fichier de sauvegarde
+        if os.path.exists(username+"_userinfo.txt"):
+            os.remove(username+"_userinfo.txt")
+
+user = User("")

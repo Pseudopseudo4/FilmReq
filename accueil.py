@@ -3,8 +3,11 @@ import tkinter as tk
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from cleanMovies import *
+import os
 
 df = cleanMovies()
+
+
 
 class Accueil(ctk.CTkFrame):
     def __init__(self, master=None):
@@ -13,10 +16,20 @@ class Accueil(ctk.CTkFrame):
         self.create_widgets()
 
     def create_widgets(self):
+        
+        list = os.listdir("userinfo")
+
+        for user in list:
+
+            with open(user, 'r') as file:
+                nom = file.readlines()[0]
+                
         self.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
+
         
-        
-        self.button_nouv = ctk.CTkButton(self, text="Nouvel utilisateur", command=self.button_nouv)
+        self.button_nouv = ctk.CTkButton(self, text=nom or "Nouvel utilisateur", command=self.button_nouv)
+
+
         self.button_nouv.grid(row=0, column=0, pady=(20,10))
         
         
