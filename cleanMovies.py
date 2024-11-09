@@ -29,9 +29,28 @@ def get_movie_tags(index):
     tags = []
 
     for column in columns:
-        for tag in df.iloc[index][column].split(', '):
+        
+        string = df.iloc[index][column]
+
+        if type(string) == str:
+            words = string.split(', ')
+        else:
+            words = ""
+
+        for tag in words:
             tags.append(tag)
 
     return tags
+
+def get_movie_rating(pos,tags_compare):
+
+    tags = get_movie_tags(pos)
+    rating = 0
+
+    for tag in tags:
+        if tag in tags_compare:
+            rating+=tags_compare[tag]
+
+    return rating
 
 cleanMovies()

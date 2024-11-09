@@ -62,5 +62,3 @@ class User():
         #Supprime le fichier de sauvegarde
         if os.path.exists(username+"_userinfo.txt"):
             os.remove(username+"_userinfo.txt")
-
-user = User("")

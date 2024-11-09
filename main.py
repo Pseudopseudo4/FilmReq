@@ -4,6 +4,7 @@ import numpy as np
 from accueil import Accueil
 from user import User
 from userPage import UserPage
+from reqPage import ReqPage
 
 class MainApp(ctk.CTk):
     def __init__(self):
@@ -15,7 +16,7 @@ class MainApp(ctk.CTk):
 
     def show_accueil(self):
         self.clear_main_frame()
-        self.accueil = Accueil(master=self)
+        self.accueil = ReqPage(self)
 
     def show_creaProfil(self):
         self.clear_main_frame()

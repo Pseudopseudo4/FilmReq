@@ -13,14 +13,14 @@ class Accueil(ctk.CTkFrame):
     def create_widgets(self):
         
         list = os.listdir("userinfo")
-
+        
         for user in list:
 
             with open(user, 'r') as file:
                 nom = file.readlines()[0]
                 
         self.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
-        self.button_nouv = ctk.CTkButton(self, text=nom, command=self.button_nouv) # Bouton
+        self.button_nouv = ctk.CTkButton(self, text="Nouvel Utilisateur", command=self.button_nouv) # Bouton
         self.button_nouv.grid(row=0, column=0, pady=(20,10))
 
     def button_nouv(self):
