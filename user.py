@@ -1,9 +1,6 @@
-import customtkinter as ctk
-import tkinter as tk
-import pandas as pd
 import os
-from pandastable import Table
-from searchAlgo import *
+import sys
+from search_algo import *
 
 class User():
     def __init__(self, username):
@@ -11,16 +8,24 @@ class User():
         self.load_user(username)
     
     def load_user(self, username):
-        
-        file_path = os.path.join("userinfo", username+"_userinfo.txt")
+
+        #Obtient la position du fichier
+        if getattr(sys, 'frozen', False):
+            base_dir = os.path.dirname(sys.executable)
+        else:
+            base_dir = os.path.abspath(".")
+
+        save_folder = os.path.join(base_dir, "userinfo")
+
+        file_path = os.path.join(save_folder, username+"_userinfo.txt")
 
         with open(file_path, 'r') as file:
 
             #Met les lignes de l'information d'utilisateur dans une liste
             lines = file.readlines()
 
-            self.nom = lines[0]
-            self.prenom = lines[1]
+            self.prenom = lines[0]
+            self.nom = lines[1]
             self.langue = lines[2]
 
             self.films_aime = [int(num) for num in lines[3].split(',')[:-1]]
@@ -31,7 +36,7 @@ class User():
 
     def rate_tags(self):
 
-        self.tags = {}
+        tags = {}
 
         #Aimé
         for film in self.films_aime:
@@ -39,9 +44,9 @@ class User():
             movie_tags = get_movie_tags(film)
 
             for tag in movie_tags:
-                if self.tags.get(tag) is None:
-                    self.tags[tag] = 0
-                self.tags[tag]+=1
+                if tags.get(tag) is None:
+                    tags[tag] = 0
+                tags[tag]+=1
 
         #Pas Aimé
         for film in self.film_aime_pas:
@@ -49,18 +54,14 @@ class User():
             movie_tags = get_movie_tags(film)
 
             for tag in movie_tags:
-                if self.tags.get(tag) is None:
-                    self.tags[tag] = 0
-                self.tags[tag]-=1
+                if tags.get(tag) is None:
+                    tags[tag] = 0
+                tags[tag]-=1
 
-    def delete_user(self):
+        final_tags = {}
 
-        username = self.nom + self.prenom
+        for tag in tags:
+            if tags[tag] != 0:
+                final_tags[tag] = tags[tag]
 
-        file_path = os.path.join("userinfo", username+"_userinfo.txt")
-
-        #Supprime le fichier de sauvegarde
-        if os.path.exists(username+"_userinfo.txt"):
-            os.remove(username+"_userinfo.txt")
-
-user = User("")
+        self.tags = final_tags
