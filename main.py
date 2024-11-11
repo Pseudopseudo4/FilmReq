@@ -1,25 +1,33 @@
 import customtkinter as ctk
-import tkinter as tk
-import numpy as np
 from accueil import Accueil
-from user import User
-from userPage import UserPage
+from profil import Profil
+from recommendations import Recommendations
+from stats import Stats
 
 class MainApp(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.geometry("350x700")
-        self.title("Appication de recherche")
+        self.geometry("750x850")
+        self.title("Application de recommendation de film")
+        self.resizable(width=False, height=False)
 
         self.show_accueil()
 
     def show_accueil(self):
         self.clear_main_frame()
-        self.accueil = Accueil(master=self)
+        self.accueil = Accueil(self)
 
-    def show_creaProfil(self):
+    def show_profil(self):
         self.clear_main_frame()
-        self.accueil = UserPage(self)
+        self.profil = Profil(self)
+
+    def show_recommendations(self,username):
+        self.clear_main_frame()
+        self.recommendations = Recommendations(self,username)
+
+    def show_stats(self):
+        self.clear_main_frame()
+        self.stats = Stats(self)
 
     def clear_main_frame(self):
         for widget in self.winfo_children():
