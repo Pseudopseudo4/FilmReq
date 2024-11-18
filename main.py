@@ -7,7 +7,7 @@ from stats import Stats
 class MainApp(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.geometry("750x850")
+        self.geometry("750x750")
         self.title("Application de recommendation de film")
         self.resizable(width=False, height=False)
 
@@ -32,6 +32,8 @@ class MainApp(ctk.CTk):
     def clear_main_frame(self):
         for widget in self.winfo_children():
             widget.destroy()
+
+ctk.set_appearance_mode("dark")
 
 if __name__ == "__main__":
     app = MainApp()

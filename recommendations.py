@@ -42,7 +42,7 @@ class Recommendations(ctk.CTkFrame):
         self.langue_option.set("Langue")
 
         #Frame pour les recommendations
-        self.recs_frame = ctk.CTkFrame(self, height=750)
+        self.recs_frame = ctk.CTkFrame(self, height=650)
         self.recs_frame.pack(fill="x", expand=False)
         self.recs_frame.pack_propagate(False)
 

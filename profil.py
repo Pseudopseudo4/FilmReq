@@ -38,7 +38,7 @@ class Profil(ctk.CTkFrame):
         self.langue_option.set("Sélectionnez la langue")
 
         #Frame pour les films
-        self.films_frame = ctk.CTkFrame(self,width=750,height=776)
+        self.films_frame = ctk.CTkFrame(self,width=750,height=676)
         self.films_frame.pack(fill="x")     
         self.films_frame.pack_propagate(False)
 
