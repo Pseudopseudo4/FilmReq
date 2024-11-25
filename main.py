@@ -3,6 +3,8 @@ from accueil import Accueil
 from profil import Profil
 from recommendations import Recommendations
 from stats import Stats
+from changer import Changer
+from changer_ajout import Changer_ajout
 
 class MainApp(ctk.CTk):
     def __init__(self):
@@ -20,6 +22,14 @@ class MainApp(ctk.CTk):
     def show_profil(self):
         self.clear_main_frame()
         self.profil = Profil(self)
+
+    def show_changer(self, username):
+        self.clear_main_frame()
+        self.changer = Changer(self,username)
+
+    def show_changer_ajout(self, username, prenom, nom, langue, films_aimes, films_pas):
+        self.clear_main_frame()
+        self.changer = Changer_ajout(self,username, prenom, nom, langue, films_aimes, films_pas)
 
     def show_recommendations(self,username):
         self.clear_main_frame()

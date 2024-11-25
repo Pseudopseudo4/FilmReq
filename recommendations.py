@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from movie_list_functions import *
+from search_algo import *
 from user import User
 
 file = "movie_list.csv"

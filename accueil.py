@@ -63,6 +63,9 @@ class Accueil(ctk.CTkFrame):
 
                 self.x_button = ctk.CTkButton(self.button_frame, text="X", width=30, fg_color="red", hover_color="darkred", command=lambda : self.button_delete(username))
                 self.x_button.pack(padx=(0,5), side="right",pady=5)
+
+                self.chan_button = ctk.CTkButton(self.button_frame, text="Modi.", width=30, fg_color="blue", hover_color="darkblue", command=lambda : self.button_change(username))
+                self.chan_button.pack(padx=(0,5), side="right",pady=5)
                 
         self.new_button = ctk.CTkButton(self.user_frame, text="Nouvel Utilisateur", command=self.button_nouv)
         self.new_button.pack(padx=5,pady=5)
@@ -70,6 +73,9 @@ class Accueil(ctk.CTkFrame):
         self.stats_button = ctk.CTkButton(self, text="Voir Statistiques", command=self.button_stat)
         self.stats_button.pack(padx=5,pady=5)
         self.stats_button.place(relx=1, rely=1, anchor='se')
+
+    def button_change(self, username):
+        self.master.show_changer(username)
 
     def button_load(self,username):
         self.master.show_recommendations(username)
