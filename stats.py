@@ -8,6 +8,8 @@ from movie_list_functions import clean_dataframe
 file = "movie_list.csv"
 df = clean_dataframe(file)
 
+
+
 class Stats(ctk.CTkFrame):
     def __init__(self, master=None):
         super().__init__(master)
@@ -67,9 +69,31 @@ class Stats(ctk.CTkFrame):
             canvas.draw()
             canvas.get_tk_widget().pack()
 
+        self.durees_bouton = ctk.CTkButton(self, text="Durées", width=30, fg_color="blue", hover_color="darkblue", command=lambda : self.bouton_durees())
+        self.durees_bouton.pack(side="left",padx=(0,5), pady=5)
+        self.durees_bouton.place(relx=0.40, rely=1, anchor='se')
+
+        self.annees_bouton = ctk.CTkButton(self, text="Années", width=30, fg_color="blue", hover_color="darkblue", command=lambda : self.bouton_annees())
+        self.annees_bouton.pack(side="left",padx=(0,5), pady=5)
+        self.annees_bouton.place(relx=0.50, rely=1, anchor='se')
+
+        self.langues_bouton = ctk.CTkButton(self, text="Langues", width=30, fg_color="blue", hover_color="darkblue", command=lambda : self.bouton_langues())
+        self.langues_bouton.pack(side="left",padx=(0,5), pady=5)
+        self.langues_bouton.place(relx=0.60, rely=1, anchor='se')
+
         self.x_button = ctk.CTkButton(self, text="X", width=30, fg_color="red", hover_color="darkred", command=lambda : self.button_return())
         self.x_button.pack(side="left",padx=(0,5), pady=5)
         self.x_button.place(relx=1, rely=1, anchor='se')
 
     def button_return(self):
         self.master.show_accueil()
+
+    #Ajout des liens pour déployer les nouveaux diagrammes
+    def bouton_durees(self):
+        self.master.show_stats_durees()
+
+    def bouton_annees(self):
+        self.master.show_stats_annees()
+
+    def bouton_langues(self):
+        self.master.show_stats_langues()
