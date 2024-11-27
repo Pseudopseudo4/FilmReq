@@ -58,7 +58,7 @@ class Accueil(ctk.CTkFrame):
                 self.button_frame = ctk.CTkFrame(self.user_frame)
                 self.button_frame.pack(padx=2,pady=2)
 
-                self.user_button = ctk.CTkButton(self.button_frame, text=prenom, command=lambda:self.button_load(username))
+                self.user_button = ctk.CTkButton(self.button_frame, text=prenom, command=lambda username_ici=username:self.button_load(username_ici))
                 self.user_button.pack(side="left",padx=5,pady=5)
 
                 self.x_button = ctk.CTkButton(self.button_frame, text="X", width=30, fg_color="red", hover_color="darkred", command=lambda : self.button_delete(username))
