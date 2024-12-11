@@ -4,7 +4,7 @@ from search_algo import *
 
 
 class Changer_ajout(ctk.CTkFrame):
-    def __init__(self, master=None, username="", prenom="", nom="", langue="", films_aimes=[], films_pas=[]):#Erreur dans ce fichier
+    def __init__(self, master=None, username="", prenom="", nom="", langue="", films_aimes=[], films_pas=[]):
         super().__init__(master)
         self.master = master
         self.user = User(username)

@@ -64,7 +64,7 @@ class Accueil(ctk.CTkFrame):
                 self.x_button = ctk.CTkButton(self.button_frame, text="X", width=30, fg_color="red", hover_color="darkred", command=lambda : self.button_delete(username))
                 self.x_button.pack(padx=(0,5), side="right",pady=5)
 
-                self.chan_button = ctk.CTkButton(self.button_frame, text="Modi.", width=30, fg_color="blue", hover_color="darkblue", command=lambda : self.button_change(username))
+                self.chan_button = ctk.CTkButton(self.button_frame, text="Modi.", width=30, fg_color="blue", hover_color="darkblue", command=lambda username_ici=username: self.button_change(username_ici))
                 self.chan_button.pack(padx=(0,5), side="right",pady=5)
                 
         self.new_button = ctk.CTkButton(self.user_frame, text="Nouvel Utilisateur", command=self.button_nouv)

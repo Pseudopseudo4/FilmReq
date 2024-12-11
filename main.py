@@ -5,7 +5,7 @@ from recommendations import Recommendations
 from stats import Stats
 from changer import Changer
 from changer_ajout import Changer_ajout
-from stats_ajouts import Stats_annees, Stats_durees, Stats_langues
+from stats_ajouts import Stats_annees, Stats_durees, Stats_langues, Stats_annees_cate
 
 class MainApp(ctk.CTk):
     def __init__(self):
@@ -51,6 +51,10 @@ class MainApp(ctk.CTk):
     def show_stats_durees(self):   
         self.clear_main_frame()
         self.stats = Stats_durees(self)
+
+    def show_stats_cate_annees(self):
+        self.clear_main_frame()
+        self.stats = Stats_annees_cate(self)
 
     def clear_main_frame(self):
         for widget in self.winfo_children():

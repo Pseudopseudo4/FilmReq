@@ -64,7 +64,6 @@ class Changer(ctk.CTkFrame):
         # Obtenir les films aimés/non du fichier
         self.films_aimes = self.user.films_aime
         self.films_pas_aimes = self.user.film_aime_pas
-        #print(df)
 
         for id in self.films_aimes:
             # Ajout à movie_entries_aimes
@@ -85,7 +84,6 @@ class Changer(ctk.CTkFrame):
             self.x_button = ctk.CTkButton(self.title_frame, text="X", width=30, fg_color="red", hover_color="darkred", command=lambda entry=entry_id, id=id: self.delete_entry("aimes",entry, id))
             self.x_button.pack(padx=(5,0), side="right")
 
-        print("")
 
         for id in self.films_pas_aimes:
             
@@ -126,8 +124,6 @@ class Changer(ctk.CTkFrame):
         Removes a movie entry from the list with the entry's ID
         """
         
-        print("suppression de ",id)
-        print("suppression sssde ",entry)
         #Delete the entry
         entry.pack_forget()
 

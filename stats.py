@@ -85,6 +85,10 @@ class Stats(ctk.CTkFrame):
         self.x_button.pack(side="left",padx=(0,5), pady=5)
         self.x_button.place(relx=1, rely=1, anchor='se')
 
+        self.annees_cate_bouton = ctk.CTkButton(self, text="Caté/Années", width=30, fg_color="blue", hover_color="darkblue", command=lambda : self.bouton_annees_cate())
+        self.annees_cate_bouton.pack(side="left",padx=(0,5), pady=5)
+        self.annees_cate_bouton.place(relx=0.80, rely=1, anchor='se')
+
     def button_return(self):
         self.master.show_accueil()
 
@@ -97,3 +101,6 @@ class Stats(ctk.CTkFrame):
 
     def bouton_langues(self):
         self.master.show_stats_langues()
+
+    def bouton_annees_cate(self):
+        self.master.show_stats_cate_annees()
